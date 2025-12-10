@@ -1,0 +1,11 @@
+message="$(cat $1)"
+requiredPattern="^(repo|build|ci|docs|feat|fix|perf|refactor|test)(\([a-z-]+\))?\: .*$"
+
+if ! echo "$message" | grep -qE "$requiredPattern"; then
+  echo "🚨 Wrong commit message! 😕"
+  echo "The commit message must have this format:"
+  echo "'type(scope): message' or 'type: message'"
+  echo "Allowed types: repo, build, ci, docs, feat, fix, perf, refactor, test"
+  echo "Example: feat: add new feature"
+  exit 1
+fi
